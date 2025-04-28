@@ -24,6 +24,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -50,6 +54,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .logo-link {
@@ -59,6 +64,7 @@
         nav ul {
             list-style: none;
             display: flex;
+            flex-wrap: wrap;
         }
 
         nav ul li {
@@ -70,6 +76,8 @@
             color: var(--text);
             font-weight: 500;
             transition: color 0.3s ease;
+            display: block;
+            padding: 0.5rem 0;
         }
 
         nav ul li a:hover {
@@ -141,10 +149,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            -webkit-tap-highlight-color: transparent;
+            /* Remove tap highlight on mobile */
         }
 
         .bless-button:hover {
-            background-color: #ff5252;
+            background-color: #6c7c8c;
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
@@ -180,6 +190,7 @@
             align-items: center;
             justify-content: center;
             color: #adb5bd;
+            overflow: hidden;
         }
 
         .stats-section {
@@ -229,6 +240,103 @@
             width: 0.001%;
             /* Start extremely small */
             transition: width 0.5s ease;
+        }
+
+        /* Mobile menu toggle button */
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) {
+            .header-flex {
+                justify-content: center;
+                text-align: center;
+            }
+
+            nav {
+                width: 100%;
+                margin-top: 1rem;
+            }
+
+            nav ul {
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .counter-section {
+                padding: 2rem 1rem;
+                margin-top: -2rem;
+            }
+
+            .counter {
+                font-size: 2.5rem;
+            }
+
+            .bless-button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .about-section {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 4rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .counter-section {
+                padding: 1.5rem 1rem;
+                margin-top: -2rem;
+            }
+
+            .counter {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+
+            .stock-image {
+                height: 180px;
+            }
         }
     </style>
 </head>
@@ -359,6 +467,7 @@
         const blessingCounter = document.getElementById('blessing-count');
         const progressBar = document.getElementById('blessing-progress');
         const blessAudio = document.getElementById('bless-audio');
+
         // Function to update the counter
         function updateCounter() {
             const timeElapsed = (Date.now() - startTime) / 1000;
@@ -403,6 +512,19 @@
                 this.textContent = "Bless You!";
             }, 1000);
         });
+
+        // Adjust counter font size for very small screens
+        function adjustCounterFontSize() {
+            if (window.innerWidth < 400) {
+                counter.style.fontSize = "1.75rem";
+            } else {
+                counter.style.fontSize = "";
+            }
+        }
+
+        // Run on page load and resize
+        window.addEventListener('resize', adjustCounterFontSize);
+        adjustCounterFontSize();
     </script>
 </body>
 
