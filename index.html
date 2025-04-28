@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unblessed.org - A Project to Address the Global Blessing Deficit</title>
+    <style>
+        :root {
+            --primary: #5c6bc0;
+            --secondary: #78909c;
+            --background: #f8f9fa;
+            --text: #333;
+            --light: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .counter-section {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            text-align: center;
+            margin-top: -4rem;
+            position: relative;
+        }
+
+        .counter-label {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        .bless-button {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .bless-button:hover {
+            background-color: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .bless-button:active {
+            transform: translateY(0);
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .stock-image {
+            background-color: var(--light);
+            height: 200px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+        }
+
+        .stats-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--secondary);
+            width: 0.001%;
+            /* Start extremely small */
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-flex">
+                <a href="#" class="logo-link">
+                    <div class="logo">Unblessed<span>.org</span></div>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="#crisis">The Sneeze Crisis</a></li>
+                        <li><a href="#stats">Sneeze Statistics</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>The Blessing Deficit</h1>
+            <p>Every second, millions of sneezes go unblessed. Together, we can make a difference.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="counter-section">
+            <p class="counter-label">Unblessed Sneezes Since You Arrived:</p>
+            <div class="counter" id="sneeze-counter">0</div>
+            <div class="progress-bar">
+                <div class="progress" id="blessing-progress"></div>
+            </div>
+            <button class="bless-button" id="bless-button">Bless You!</button>
+            <p id="blessing-count" style="margin-top: 1rem; font-size: 1.1rem;">You've blessed 0 sneezes</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress toward your daily goal of 43 blessings</p>
+        </div>
+
+        <section id="crisis">
+            <h2 style="text-align: center; margin-bottom: 3rem;">The Sneeze Crisis</h2>
+            <div class="about-section">
+                <div class="about-card">
+                    <div class="stock-image"><img src="assets/sneeze.png" alt="Human sneezing"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+                    <h3>The Human Factor</h3>
+                    <p>With 8 billion humans each sneezing 2-3 times daily, over 20 billion human sneezes occur every
+                        day. The vast majority go unblessed, creating a massive blessing deficit.</p>
+                </div>
+                <div class="about-card">
+                    <div class="stock-image"><img src="assets/animal.png" alt="Animal sneezing"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+                    <h3>The Animal Kingdom</h3>
+                    <p>Animals sneeze too! From elephants to house cats, countless animal sneezes have never received a
+                        single blessing throughout evolutionary history.</p>
+                </div>
+                <div class="about-card">
+                    <div class="stock-image"><img src="assets/solution.png" alt="Blessing solution"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+                    <h3>Our Mission</h3>
+                    <p>At Unblessed.org, we're raising awareness about this critical issue and empowering global
+                        citizens to become active blessing participants. Together, we can address this challenge if each
+                        person says just 43 bless-yous per day!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="stats" class="stats-section">
+            <div class="container">
+                <h2>Sneeze Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">3.1M</div>
+                        <p>Sneezes per second worldwide</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">43</div>
+                        <p>Daily "bless yous" needed per person</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">4+ Quadrillion</div>
+                        <p>Unblessed human sneezes throughout history</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Quintillions</div>
+                        <p>Unblessed animal sneezes</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer id="about">
+        <div class="container">
+            <h3 style="margin-bottom: 1.5rem;">About This Project</h3>
+            <p>Unblessed.org is an awareness campaign highlighting the global sneeze blessing deficit and mobilizing
+                people worldwide to address this challenge together.</p>
+            <p style="margin-top: 1rem;">Contact: <a href="mailto:achoo@unblessed.org"
+                    style="color: white; text-decoration: underline;">achoo@unblessed.org</a></p>
+            <p style="margin-top: 1rem;">© 2025 Unblessed.org - A Project to Address the Global Blessing Deficit</p>
+        </div>
+    </footer>
+
+    <audio id="bless-audio" src="assets/bless-you.mp3"></audio>
+
+    <script>
+        // Global sneeze rate calculations
+        const humanPopulation = 8000000000; // 8 billion humans
+        const animalPopulation = 100000000000; // 100 billion sneezing animals (conservative)
+        const humanSneezesPerDay = 2.5; // Average
+        const animalSneezesPerDay = 3; // Estimated
+
+        // Calculate sneezes per second
+        const humanSneezesPerSecond = (humanPopulation * humanSneezesPerDay) / 86400;
+        const animalSneezesPerSecond = (animalPopulation * animalSneezesPerDay) / 86400;
+        const totalSneezesPerSecond = humanSneezesPerSecond + animalSneezesPerSecond;
+
+        // Initialize counter variables
+        let unblessedCount = 0;
+        let blessingCount = 0;
+        let startTime = Date.now();
+
+        // DOM elements
+        const counter = document.getElementById('sneeze-counter');
+        const blessButton = document.getElementById('bless-button');
+        const blessingCounter = document.getElementById('blessing-count');
+        const progressBar = document.getElementById('blessing-progress');
+        const blessAudio = document.getElementById('bless-audio');
+        // Function to update the counter
+        function updateCounter() {
+            const timeElapsed = (Date.now() - startTime) / 1000;
+            unblessedCount = Math.floor(totalSneezesPerSecond * timeElapsed);
+            counter.textContent = unblessedCount.toLocaleString();
+
+            // Update progress bar based on daily goal of 43 blessings
+            const progressPercentage = (blessingCount / 43) * 100;
+            // Ensure the progress is visible but not too large
+            const displayPercentage = Math.min(100, progressPercentage);
+            progressBar.style.width = displayPercentage + '%';
+
+            requestAnimationFrame(updateCounter);
+        }
+
+        // Start the counter
+        requestAnimationFrame(updateCounter);
+
+        // Add bless button functionality
+        blessButton.addEventListener('click', function () {
+            // Play the blessing audio
+            blessAudio.currentTime = 0;
+            blessAudio.play().catch(e => console.log("Audio play failed:", e));
+
+            // Increment blessing count
+            blessingCount += 1; // Bless one sneeze at a time
+            blessingCounter.textContent = `You've blessed ${blessingCount.toLocaleString()} ${blessingCount === 1 ? 'sneeze' : 'sneezes'}`;
+
+            // Update progress bar with daily goal context
+            // 43 blessings per day is the target for every human
+            const progressPercentage = (blessingCount / 43) * 100;
+            // Ensure the progress is visible but not too large
+            const displayPercentage = Math.min(100, progressPercentage);
+            progressBar.style.width = displayPercentage + '%';
+
+            // Button animation
+            this.disabled = true;
+            this.textContent = "Blessing...";
+
+            setTimeout(() => {
+                this.disabled = false;
+                this.textContent = "Bless You!";
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
