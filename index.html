@@ -8,14 +8,25 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700&display=swap"
+        rel="stylesheet">
     <title>Unblessed.org - Addressing the Global Blessing Deficit</title>
     <style>
         :root {
             --primary: #5c6bc0;
-            --secondary: #78909c;
+            --primary-dark: #4a59b6;
+            --secondary: #6c7d90;
+            --secondary-light: #97a3b4;
             --background: #f8f9fa;
             --text: #333;
+            --text-light: #6c757d;
             --light: #e9ecef;
+            --white: #ffffff;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         * {
@@ -29,15 +40,28 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text);
             background-color: var(--background);
+            font-size: 16px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
         }
 
         header {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: var(--white);
+            box-shadow: var(--shadow-sm);
             padding: 1rem 0;
             position: sticky;
             top: 0;
@@ -65,7 +89,7 @@
 
         .logo-image {
             height: 40px;
-            margin-right: 4px;
+            margin-right: 8px;
         }
 
         nav ul {
@@ -75,7 +99,7 @@
         }
 
         nav ul li {
-            margin: 0 1rem;
+            margin: 0 1.2rem;
         }
 
         nav ul li a {
@@ -102,97 +126,125 @@
         }
 
         section {
-            padding: 4rem 0;
+            padding: 5rem 0;
         }
 
         .hero {
             text-align: center;
             padding: 6rem 0;
             background-color: var(--primary);
-            color: white;
+            color: var(--white);
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 0.03em;
+            font-weight: 700;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             max-width: 800px;
             margin: 0 auto 2rem;
+            line-height: 1.7;
         }
 
         .counter-section {
-            background-color: white;
+            background-color: var(--white);
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            padding: 3rem;
+            box-shadow: var(--shadow);
+            padding: 3.5rem;
             text-align: center;
             margin-top: -4rem;
             position: relative;
         }
 
         .counter-label {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 1.2rem;
             color: var(--primary);
+            letter-spacing: 0.02em;
+            font-weight: 500;
         }
 
         .counter {
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 700;
             color: var(--text);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.02em;
+            transition: color 0.3s ease;
+            min-width: 320px;
+            display: inline-block;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
         }
 
         .bless-button {
             background-color: var(--secondary);
-            color: white;
+            color: var(--white);
             border: none;
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
+            padding: 1rem 2.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             -webkit-tap-highlight-color: transparent;
-            /* Remove tap highlight on mobile */
         }
 
         .bless-button:hover {
-            background-color: #6c7c8c;
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         .bless-button:active {
             transform: translateY(0);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .about-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
+            margin-top: 1rem;
         }
 
         .about-card {
-            background-color: white;
+            background-color: var(--white);
             border-radius: 8px;
-            padding: 2rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2.2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
         }
 
         .about-card h3 {
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .about-card p {
+            color: var(--text-light);
+            line-height: 1.7;
         }
 
         .stock-image {
             background-color: var(--light);
             height: 200px;
             border-radius: 8px;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -200,63 +252,144 @@
             overflow: hidden;
         }
 
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 0.8rem;
+            margin-bottom: 0;
+            color: var(--text);
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 30%;
+            width: 40%;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+
         .stats-section {
             background-color: var(--primary);
-            color: white;
+            color: var(--white);
             padding: 5rem 0;
             text-align: center;
         }
 
+        .stats-section h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+        }
+
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            margin: 0 auto;
+            max-width: 1000px;
         }
 
         .stat-card {
-            padding: 1.5rem;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            padding: 2.5rem 1.5rem;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 4rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.01em;
+            line-height: 1;
+        }
+
+        .stat-card p {
+            font-size: 1rem;
+            letter-spacing: 0.03em;
+            opacity: 0.9;
+            margin: 0;
+            line-height: 1.4;
         }
 
         footer {
             background-color: #333;
             color: white;
-            padding: 3rem 0;
+            padding: 3.5rem 0;
             text-align: center;
+        }
+
+        footer h3 {
+            margin-bottom: 1.8rem;
+            font-size: 1.5rem;
+        }
+
+        footer p {
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: underline;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
         }
 
         .progress-bar {
             height: 10px;
-            background-color: #e9ecef;
+            background-color: var(--light);
             border-radius: 5px;
-            margin: 2rem 0;
+            margin: 2rem 0 2.5rem;
             overflow: hidden;
         }
 
         .progress {
             height: 100%;
-            background-color: var(--secondary);
+            background-color: var(--primary);
             width: 0.001%;
-            /* Start extremely small */
             transition: width 0.5s ease;
         }
 
-        /* Mobile menu toggle button */
-        .mobile-menu-toggle {
-            display: none;
-            background: transparent;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+        #blessing-count {
+            margin-top: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
             color: var(--primary);
+        }
+
+        .progress-goal {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            letter-spacing: 0.01em;
         }
 
         /* Media Queries for Responsive Design */
@@ -280,7 +413,7 @@
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
             }
 
             .hero p {
@@ -288,17 +421,16 @@
             }
 
             .counter-section {
-                padding: 2rem 1rem;
+                padding: 2.5rem 1.5rem;
                 margin-top: -2rem;
             }
 
             .counter {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
 
             .bless-button {
-                padding: 0.75rem 1.5rem;
-                font-size: 1rem;
+                padding: 0.8rem 1.8rem;
             }
 
             .about-section {
@@ -307,6 +439,11 @@
 
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.8rem;
             }
         }
 
@@ -316,33 +453,37 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .counter-section {
-                padding: 1.5rem 1rem;
+                padding: 2rem 1rem;
                 margin-top: -2rem;
             }
 
             .counter {
-                font-size: 2rem;
+                font-size: 2.4rem;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
+                gap: 1.5rem;
             }
 
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.8rem;
             }
 
             section {
-                padding: 3rem 0;
+                padding: 3.5rem 0;
             }
 
             .stock-image {
                 height: 180px;
+            }
+
+            .section-title h2 {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -382,12 +523,14 @@
                 <div class="progress" id="blessing-progress"></div>
             </div>
             <button class="bless-button" id="bless-button">Bless You!</button>
-            <p id="blessing-count" style="margin-top: 1rem; font-size: 1.1rem;">You've blessed 0 sneezes</p>
-            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Progress toward your daily goal of 43 blessings</p>
+            <p id="blessing-count">You've blessed 0 sneezes</p>
+            <p class="progress-goal">Progress toward your daily goal of 43 blessings</p>
         </div>
 
         <section id="crisis">
-            <h2 style="text-align: center; margin-bottom: 3rem;">The Sneeze Crisis</h2>
+            <div class="section-title">
+                <h2>The Sneeze Crisis</h2>
+            </div>
             <div class="about-section">
                 <div class="about-card">
                     <div class="stock-image"><img src="assets/sneeze.png" alt="Human sneezing"
@@ -427,11 +570,11 @@
                         <p>Daily "bless yous" needed per person</p>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">4+ Quadrillion</div>
-                        <p>Unblessed human sneezes throughout history</p>
+                        <div class="stat-number">4+</div>
+                        <p>Quadrillion unblessed<br>human sneezes</p>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-number">Quintillions</div>
+                        <div class="stat-number">10<sup>18</sup></div>
                         <p>Unblessed animal sneezes</p>
                     </div>
                 </div>
@@ -441,12 +584,12 @@
 
     <footer id="about">
         <div class="container">
-            <h3 style="margin-bottom: 1.5rem;">About This Project</h3>
+            <h3>About This Project</h3>
             <p>Unblessed.org is an awareness campaign highlighting the global sneeze blessing deficit and mobilizing
                 people worldwide to address this challenge together.</p>
-            <p style="margin-top: 1rem;">Contact: <a href="mailto:achoo@unblessed.org"
-                    style="color: white; text-decoration: underline;">achoo@unblessed.org</a></p>
-            <p style="margin-top: 1rem;">© 2025 Unblessed.org - Addressing the Global Blessing Deficit</p>
+            <p style="margin-top: 1rem;">Contact: <a href="mailto:achoo@unblessed.org">achoo@unblessed.org</a></p>
+            <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">© 2025 Unblessed.org - Addressing the Global
+                Blessing Deficit</p>
         </div>
     </footer>
 
@@ -487,12 +630,10 @@
             // Ensure the progress is visible but not too large
             const displayPercentage = Math.min(100, progressPercentage);
             progressBar.style.width = displayPercentage + '%';
-
-            requestAnimationFrame(updateCounter);
         }
 
-        // Start the counter
-        requestAnimationFrame(updateCounter);
+        // Start the counter with 100ms
+        const counterInterval = setInterval(updateCounter, 100);
 
         // Add bless button functionality
         blessButton.addEventListener('click', function () {
