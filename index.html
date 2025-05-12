@@ -13,6 +13,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@500;600;700&display=swap"
         rel="stylesheet">
+    <!-- Add canvas-confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <title>Unblessed.org - Addressing the Global Blessing Deficit</title>
     <style>
         :root {
@@ -392,6 +394,52 @@
             letter-spacing: 0.01em;
         }
 
+        /* Toast notification style */
+        .toast-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .toast-notification.visible {
+            opacity: 1;
+        }
+
+        /* Floating number animation */
+        .floating-number {
+            position: absolute;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 3rem;
+            pointer-events: none;
+            animation: float-up 1.5s ease-out forwards;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.8);
+            z-index: 10;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+        }
+
         /* Media Queries for Responsive Design */
         @media (max-width: 768px) {
             .header-flex {
@@ -593,6 +641,10 @@
         </div>
     </footer>
 
+    <!-- Toast notification element -->
+    <div class="toast-notification" id="goal-reached-toast">Congratulations! You've reached your daily goal of 43
+        blessings!</div>
+
     <audio id="bless-audio" src="assets/bless-you.mp3"></audio>
 
     <script>
@@ -611,6 +663,7 @@
         let unblessedCount = 0;
         let blessingCount = 0;
         let startTime = Date.now();
+        let goalReached = false; // Track if the goal has been reached to prevent multiple celebrations
 
         // DOM elements
         const counter = document.getElementById('sneeze-counter');
@@ -618,6 +671,7 @@
         const blessingCounter = document.getElementById('blessing-count');
         const progressBar = document.getElementById('blessing-progress');
         const blessAudio = document.getElementById('bless-audio');
+        const goalReachedToast = document.getElementById('goal-reached-toast');
 
         // Function to update the counter
         function updateCounter() {
@@ -632,8 +686,78 @@
             progressBar.style.width = displayPercentage + '%';
         }
 
+        // Function to trigger the confetti celebration
+        function triggerConfettiCelebration() {
+            // Use the canvas-confetti library for a celebration effect
+            const duration = 3000; // 3 seconds of celebration
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            // Use multiple bursts with different colors for a more festive effect
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 50 * (timeLeft / duration);
+
+                // Burst from left side
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    origin: { x: 0.1, y: 0.5 },
+                    colors: ['#5c6bc0', '#4a59b6', '#6c7d90']
+                }));
+
+                // Burst from right side
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    origin: { x: 0.9, y: 0.5 },
+                    colors: ['#5c6bc0', '#4a59b6', '#6c7d90']
+                }));
+
+                // Burst from top
+                confetti(Object.assign({}, defaults, {
+                    particleCount: particleCount / 2,
+                    origin: { x: 0.5, y: 0.1 }
+                }));
+            }, 250);
+
+            // Show the toast notification
+            goalReachedToast.classList.add('visible');
+
+            // Hide the toast after 5 seconds
+            setTimeout(() => {
+                goalReachedToast.classList.remove('visible');
+            }, 5000);
+        }
+
         // Start the counter with 100ms
         const counterInterval = setInterval(updateCounter, 100);
+
+        // Function to create floating "-1" animation
+        function createFloatingNumber() {
+            // Get the position of the counter
+            const counterRect = counter.getBoundingClientRect();
+
+            // Create the floating number element
+            const floatingNum = document.createElement('div');
+            floatingNum.className = 'floating-number';
+            floatingNum.textContent = '-1';
+
+            // Position it to the right of the counter with slight vertical randomization
+            floatingNum.style.left = `${counterRect.right + 20}px`;
+            floatingNum.style.top = `${counterRect.top + counterRect.height / 2 - 20 + (Math.random() * 20)}px`;
+
+            // Add it to the body
+            document.body.appendChild(floatingNum);
+
+            // Remove it after animation completes
+            setTimeout(() => {
+                document.body.removeChild(floatingNum);
+            }, 1500); // Match animation duration
+        }
 
         // Add bless button functionality
         blessButton.addEventListener('click', function () {
@@ -645,6 +769,15 @@
             blessingCount += 1; // Bless one sneeze at a time
             blessingCounter.textContent = `You've blessed ${blessingCount.toLocaleString()} ${blessingCount === 1 ? 'sneeze' : 'sneezes'}`;
 
+            // Decrement the unblessed count by 1 (subtract one from the rapidly increasing counter)
+            unblessedCount = Math.max(0, unblessedCount - 1);
+
+            // Show the floating "-1" animation
+            createFloatingNumber();
+
+            // Update counter display
+            counter.textContent = unblessedCount.toLocaleString();
+
             // Update progress bar with daily goal context
             // 43 blessings per day is the target for every human
             const progressPercentage = (blessingCount / 43) * 100;
@@ -655,6 +788,13 @@
             // Button animation
             this.disabled = true;
             this.textContent = "Blessing...";
+
+            // Check if the user reached exactly 43 blessings (Easter egg)
+            if (blessingCount === 43 && !goalReached) {
+                goalReached = true; // Set the flag to prevent multiple celebrations
+                // Trigger the confetti celebration!
+                triggerConfettiCelebration();
+            }
 
             setTimeout(() => {
                 this.disabled = false;
